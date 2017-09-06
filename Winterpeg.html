@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Winterpeg Weather</title>
+        <meta charset="UTF-8"> 
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=weather"></script>
+        <script src ="map.js"></script>
+        <script src ="SnowFall.js"></script>
+        <script src ="weather.js"></script>
+
+        <script>
+            window.onload = function() {
+                getWeather();
+
+                timeLeft = (clock.getMinutes() * 60 * 1000) + (clock.getSeconds() * 1000);
+
+                //getWeather();
+
+                setInterval(function() {
+                    getWeather();
+                    refreshMap();
+                }, (3600000 - timeLeft));
+
+                addSnow();
+
+                setInterval(function() {
+                    moveSnow();
+                }, 100);
+
+                addMap();
+
+            };
+
+        </script>
+
+        <style type ="text/css">
+            @font-face {
+                font-family: SnowFont;
+                src: url('SnowFont.ttf');
+            }
+
+            body { padding:0px; margin:0px; overflow: hidden; }
+            #page {height:100%; width:800px; margin:0px auto; padding-top: 250px;}
+            #map-canvas {height:300px; width:300px; float:left; background-color: white;  border-radius: 15px; -moz-border-radius: 15px; -webkit-mask-image:url(mask.png);}
+            #winterpeg-canvas{top:0px; left:0px; position:absolute;  overflow: hidden; font-family: SnowFont ;}
+            #weather {height:300px; width: 300px; float:right; background-color: white; opacity: .7;  border-radius: 15px; -moz-border-radius:15px}
+            #bottomDiv {position:absolute; bottom:0px; background-color: white; height:20px; width:100%;opacity: .7; border-top-left-radius:15px; border-top-right-radius:15px; -moz-border-top-right-radius:15px; -moz-border-top-left-radius:15px; text-align:center;}
+            #topDiv {position:absolute; top:0px; background-color: white; height:20px; width:100%;opacity: .7; border-bottom-left-radius:15px; border-bottom-right-radius:15px; -moz-border-bottom-right-radius:15px; -moz-border-bottom-left-radius:15px; text-align:center;}
+            p {margin: 20px;}
+            .time {margin: 20px; font-style: italic;}
+
+        </style>
+
+
+    </head>
+    <body>
+        <canvas id ="winterpeg-canvas"></canvas>
+        <div id="page">
+            <div id ="map-canvas"></div>
+            <div id = "weather">
+            </div>
+
+        </div>
+        <div id="topDiv"></div>
+        <div id="bottomDiv">Created by Mason Riley Moore :)</div>
+    </body>
+</html>
